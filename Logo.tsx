@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions } from "react-native";
 import { Svg, G, Path  } from "react-native-svg";
-import Animated, {interpolate, Extrapolate} from "react-native-reanimated";
+import Animated, {interpolate, Extrapolate, multiply} from "react-native-reanimated";
 
 const {width, height} = Dimensions.get("window")
 const AnimatedPath = Animated.createAnimatedComponent(Path);
@@ -21,9 +21,21 @@ const paths = [
 
 const LoadingWithSVG: React.FC<LoadingWithSVGProps> = ({progress}) => {
   const delta = 1 / paths.length;
+  
+  const widthPath = width * 35.7 / 100;
+  const dx = width*width/height - widthPath;
+  
+  const H = height*0.2;
+  const heightPath = H * 33.4/100;
+  const dy = -H/2+heightPath;
 
   return (
-    <Svg height="100%" width="100%" fill="none" fillRule="evenodd" viewBox={`${-(width-225.9)/2} ${-(height-75.1)/2} ${width} ${height}`}>
+    <Svg
+      height={H} 
+      width={width} 
+      fill="red" 
+      fillRule="evenodd" 
+      viewBox={`${-dx} ${dy} ${width*width/height} ${H*width/height}`}>
       <G stroke="none" strokeWidth="1">
         <G transform="translate(-143.000000, -16.000000)" fill="#FFFFFF" fillRule="nonzero">
           <G transform="translate(143.000000, 16.000000)">
@@ -34,12 +46,24 @@ const LoadingWithSVG: React.FC<LoadingWithSVGProps> = ({progress}) => {
 
                 const scale = interpolate(progress, {
                   inputRange: [start, end],
-                  outputRange: [1, 1.5],
+                  outputRange: [1, 1.3],
                   extrapolate: Extrapolate.CLAMP,
                 });
 
+                
                 return (
-                  <AnimatedPath key={i} style={{transform: [{ scale }]}} d={p} stroke="black" />    
+                  <AnimatedPath key={i} style={
+                    {
+                      transform: [
+                        {translateX: multiply(scale, 10) },
+                        {translateY: multiply(scale, 10) },
+                        { scale },
+                        {translateX: multiply(scale, -10) },
+                        {translateY: multiply(scale, -10) },
+                      ]
+                    }
+                  } 
+                  d={p} stroke="#B620E0" />    
                 )}
               )
             }
