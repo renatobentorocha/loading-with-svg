@@ -17,7 +17,7 @@ const runProgress = (clock: Clock) => {
 
   const config = { 
     toValue: new Animated.Value(1), 
-    duration: 3000, 
+    duration: 2000, 
     easing: Easing.inOut(Easing.ease)
   };
 
