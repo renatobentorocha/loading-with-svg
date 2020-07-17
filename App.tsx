@@ -5,7 +5,7 @@ import Animated, { Clock, Easing, block, cond, not, set, eq } from "react-native
 
 import Logo from "./Logo";
 
-const {timing, useCode, startClock, clockRunning} = Animated;
+const {timing, useCode, startClock} = Animated;
 
 const runProgress = (clock: Clock) => {
   const state = { 
@@ -17,7 +17,7 @@ const runProgress = (clock: Clock) => {
 
   const config = { 
     toValue: new Animated.Value(1), 
-    duration: 2000, 
+    duration: 5000, 
     easing: Easing.inOut(Easing.ease)
   };
 
@@ -51,7 +51,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#16181d',
     alignItems: 'center',
     justifyContent: 'center',
   },
