@@ -31,8 +31,8 @@ const LoadingWithSVG: React.FC<LoadingWithSVGProps> = ({progress}) => {
     <Svg
       height={H} 
       width={width} 
-      viewBox={`${-width/3.5} ${0} ${width} ${H/2}`}
       preserveAspectRatio="xMidYMid meet">
+        <G x={(width/2) - (154.5/2)} y={H/2}>
         {
           paths.map((p, i) => {
             const start = i * delta;
@@ -60,6 +60,7 @@ const LoadingWithSVG: React.FC<LoadingWithSVGProps> = ({progress}) => {
             )}
           )
         } 
+        </G>
     </Svg>
   );
 }
