@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Dimensions } from "react-native";
 import { Svg, G, Path  } from "react-native-svg";
 import Animated, {interpolate, Extrapolate, multiply} from "react-native-reanimated";
@@ -24,6 +24,12 @@ const paths = [
 ];
 
 const LoadingWithSVG: React.FC<LoadingWithSVGProps> = ({progress}) => {
+  useEffect(() => {
+    const interveral = setInterval(() => console.log("Interval"), 1000);
+
+    return () => clearInterval(interveral)
+  },[])
+
   const delta = 1 / paths.length;
   const H = height*0.2;
   
